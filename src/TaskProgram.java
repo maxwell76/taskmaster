@@ -1,3 +1,8 @@
+
+import java.util.ArrayList;
+import java.util.ListIterator;
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -10,11 +15,17 @@
  */
 public class TaskProgram extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TaskProgram
-     */
+    ArrayList list;
+    ListIterator li;
+    int curtask, tottask;
+    Task t;
+    
     public TaskProgram() {
         initComponents();
+        list = new ArrayList();
+        li=list.listIterator();
+        curtask=0;
+        tottask=0;
     }
 
     /**
@@ -30,43 +41,44 @@ public class TaskProgram extends javax.swing.JFrame {
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtname = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtdescription = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lblctask = new javax.swing.JLabel();
+        lblttask = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnfront = new javax.swing.JButton();
+        btnleft = new javax.swing.JButton();
+        btnright = new javax.swing.JButton();
+        btnback = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        mnualltasks = new javax.swing.JMenuItem();
+        mnuexit = new javax.swing.JMenuItem();
+        mnureplace = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        mnuremove = new javax.swing.JMenuItem();
+        mnurestore = new javax.swing.JMenuItem();
+        mnuclear = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
+        mnubefore = new javax.swing.JMenuItem();
+        mnuafter = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 204, 255));
 
         jLabel1.setText("Name:");
 
         jLabel2.setText("Description:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtdescription.setColumns(20);
+        txtdescription.setRows(5);
+        jScrollPane1.setViewportView(txtdescription);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -74,9 +86,13 @@ public class TaskProgram extends javax.swing.JFrame {
 
         jLabel4.setText("Total Tasks");
 
-        jLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblctask.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblctask.setText("0");
+        lblctask.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblttask.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblttask.setText("0");
+        lblttask.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -86,11 +102,11 @@ public class TaskProgram extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblctask, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblttask, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -98,8 +114,8 @@ public class TaskProgram extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblctask, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblttask, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -107,13 +123,33 @@ public class TaskProgram extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jButton1.setText("|<");
+        btnfront.setText("|<");
+        btnfront.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnfrontActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("<");
+        btnleft.setText("<");
+        btnleft.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnleftActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText(">");
+        btnright.setText(">");
+        btnright.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnrightActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText(">|");
+        btnback.setText(">|");
+        btnback.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -121,13 +157,13 @@ public class TaskProgram extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addComponent(btnfront)
                 .addGap(59, 59, 59)
-                .addComponent(jButton2)
+                .addComponent(btnleft)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addComponent(btnright)
                 .addGap(59, 59, 59)
-                .addComponent(jButton4)
+                .addComponent(btnback)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -135,51 +171,86 @@ public class TaskProgram extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(btnfront)
+                    .addComponent(btnleft)
+                    .addComponent(btnright)
+                    .addComponent(btnback))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Program");
 
-        jMenuItem2.setText("Show All Tasks");
-        jMenu1.add(jMenuItem2);
-
-        jMenuItem3.setText("Exit");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        mnualltasks.setText("Show All Tasks");
+        mnualltasks.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                mnualltasksActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenu1.add(mnualltasks);
+
+        mnuexit.setText("Exit");
+        mnuexit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuexitActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnuexit);
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        mnureplace.setText("Edit");
 
         jMenuItem4.setText("Replace This As Current Task");
-        jMenu2.add(jMenuItem4);
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        mnureplace.add(jMenuItem4);
 
-        jMenuItem5.setText("Remove Current Task");
-        jMenu2.add(jMenuItem5);
+        mnuremove.setText("Remove Current Task");
+        mnuremove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuremoveActionPerformed(evt);
+            }
+        });
+        mnureplace.add(mnuremove);
 
-        jMenuItem6.setText("Restore Current Task To Screen");
-        jMenu2.add(jMenuItem6);
+        mnurestore.setText("Restore Current Task To Screen");
+        mnurestore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnurestoreActionPerformed(evt);
+            }
+        });
+        mnureplace.add(mnurestore);
 
-        jMenuItem7.setText("Clear Screen");
-        jMenu2.add(jMenuItem7);
+        mnuclear.setText("Clear Screen");
+        mnuclear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuclearActionPerformed(evt);
+            }
+        });
+        mnureplace.add(mnuclear);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(mnureplace);
 
         jMenu3.setText("Insert");
 
-        jMenuItem8.setText("Before Currnt Task");
-        jMenu3.add(jMenuItem8);
+        mnubefore.setText("Before Currnt Task");
+        mnubefore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnubeforeActionPerformed(evt);
+            }
+        });
+        jMenu3.add(mnubefore);
 
-        jMenuItem9.setText("After Current Task");
-        jMenu3.add(jMenuItem9);
+        mnuafter.setText("After Current Task");
+        mnuafter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuafterActionPerformed(evt);
+            }
+        });
+        jMenu3.add(mnuafter);
 
         jMenuBar1.add(jMenu3);
 
@@ -198,7 +269,7 @@ public class TaskProgram extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1)
+                            .addComponent(txtname)
                             .addComponent(jScrollPane1)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -210,7 +281,7 @@ public class TaskProgram extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
@@ -225,9 +296,161 @@ public class TaskProgram extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    private void mnuexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuexitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_mnuexitActionPerformed
+
+    private void mnuafterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuafterActionPerformed
+        String nm=txtname.getText(); //read infor from screen
+        String d=txtdescription.getText();
+        Task t = new Task(nm, d);
+        if(t.validate()==false){
+            JOptionPane.showMessageDialog(this, "Error - Must enter all information");
+            return;
+        }
+        if(tottask>0) li.next();
+        
+        li.add(t);
+        li.previous();
+        curtask++;
+        tottask++;
+        lblttask.setText(""+tottask);
+        lblctask.setText(""+curtask);
+        JOptionPane.showMessageDialog(this, "Task Added");
+    }//GEN-LAST:event_mnuafterActionPerformed
+
+    private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
+        if(curtask==tottask) return;
+        while(li.hasNext())
+            li.next();
+        t=(Task)li.previous();
+        curtask=tottask;
+        
+        lblctask.setText(""+curtask);
+        txtname.setText(t.getName());
+        txtdescription.setText(t.getDescription());
+    }//GEN-LAST:event_btnbackActionPerformed
+
+    private void btnrightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrightActionPerformed
+        if(curtask == tottask)return;
+        curtask++;
+        lblctask.setText(""+curtask);
+        li.next();
+        li.next();
+        t=(Task)li.previous();
+        txtname.setText(t.getName());
+        txtdescription.setText(t.getDescription());
+    }//GEN-LAST:event_btnrightActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        if(tottask==0){
+            JOptionPane.showMessageDialog(this, "No task to replace this with, use Insert instead");
+            return;
+        }
+        
+        String nm=txtname.getText();
+        String d=txtdescription.getText();
+        Task t = new Task(nm,d);
+        if(t.validate()==false){
+            JOptionPane.showMessageDialog(this, "Error - Must enter all information");
+            return;
+        }
+        li.next();
+        li.set(t);
+        li.previous();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void mnuremoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuremoveActionPerformed
+        if(tottask==0)return;
+        
+        li.next();
+        
+        li.remove();
+        tottask--;
+        lblttask.setText(""+tottask);
+        
+        if(tottask==0){
+            txtname.setText("");
+            txtdescription.setText("");
+            curtask=0;
+            lblctask.setText("n/a");
+            return;
+        }
+        
+        else if(curtask>1){
+            t=(Task)li.previous();
+            curtask--;
+            lblttask.setText(""+curtask);
+        }
+        
+        else{
+            li.next();
+            t=(Task)li.previous();
+        }
+        txtname.setText(t.getName());
+        txtdescription.setText(t.getDescription());
+    }//GEN-LAST:event_mnuremoveActionPerformed
+
+    private void mnualltasksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnualltasksActionPerformed
+        String result ="";
+        for (int x = 0; x < list.size(); x++) {
+            t=(Task)list.get(x);
+            result+="TASK "+(x+1)+":\n"+t.toString()+"\n";
+        }
+        JOptionPane.showMessageDialog(this, result);
+    }//GEN-LAST:event_mnualltasksActionPerformed
+
+    private void mnurestoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnurestoreActionPerformed
+        lblctask.setText(""+curtask);
+        txtname.setText(t.getName());
+        txtdescription.setText(t.getDescription());
+    }//GEN-LAST:event_mnurestoreActionPerformed
+
+    private void mnuclearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuclearActionPerformed
+        txtdescription.setText("");
+        txtname.setText("");
+    }//GEN-LAST:event_mnuclearActionPerformed
+
+    private void mnubeforeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnubeforeActionPerformed
+        
+        String nm=txtname.getText(); //read infor from screen
+        String d=txtdescription.getText();
+        Task t = new Task(nm, d);
+        if(t.validate()==false){
+            JOptionPane.showMessageDialog(this, "Error - Must enter all information");
+            return;
+        }
+        
+        
+        li.add(t);
+        li.previous();
+        if(tottask==0) curtask=1;
+        tottask++;
+        lblttask.setText(""+tottask);
+        lblctask.setText(""+curtask);
+        JOptionPane.showMessageDialog(this, "Task Added");
+    }//GEN-LAST:event_mnubeforeActionPerformed
+
+    private void btnleftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnleftActionPerformed
+        if(curtask == 1)return;
+        curtask--;
+        lblctask.setText(""+curtask);
+        t=(Task) li.previous();
+        txtname.setText(t.getName());
+        txtdescription.setText(t.getDescription());
+    }//GEN-LAST:event_btnleftActionPerformed
+
+    private void btnfrontActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfrontActionPerformed
+        if(curtask==1) return;
+        while(li.hasPrevious())
+          t=(Task)li.previous();
+       
+        curtask=1;
+        
+        lblctask.setText(""+curtask);
+        txtname.setText(t.getName());
+        txtdescription.setText(t.getDescription());
+    }//GEN-LAST:event_btnfrontActionPerformed
 
     /**
      * @param args the command line arguments
@@ -265,34 +488,34 @@ public class TaskProgram extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnback;
+    private javax.swing.JButton btnfront;
+    private javax.swing.JButton btnleft;
+    private javax.swing.JButton btnright;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblctask;
+    private javax.swing.JLabel lblttask;
+    private javax.swing.JMenuItem mnuafter;
+    private javax.swing.JMenuItem mnualltasks;
+    private javax.swing.JMenuItem mnubefore;
+    private javax.swing.JMenuItem mnuclear;
+    private javax.swing.JMenuItem mnuexit;
+    private javax.swing.JMenuItem mnuremove;
+    private javax.swing.JMenu mnureplace;
+    private javax.swing.JMenuItem mnurestore;
+    private javax.swing.JTextArea txtdescription;
+    private javax.swing.JTextField txtname;
     // End of variables declaration//GEN-END:variables
 }
